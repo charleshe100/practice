@@ -1,6 +1,6 @@
 <?php
-$acc=$_GET['acc'];
-$pw=$_GET['pw'];
+$acc=$_POST['acc'];
+$pw=$_POST['pw'];
 if (!empty($acc) && !empty($pw)) {
     if($acc=="admin" && $pw==1234){
         header("location:member.php?login=1");

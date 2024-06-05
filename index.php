@@ -29,7 +29,7 @@ if(isset($_GET['error'])){
 <div class="container mt-5 mx-auto>
     <div class="row">
         <div class="col">
-        <form action="check.php" method="get">
+        <form action="check.php" method="post">
             <div class="mt-2 mx-auto text-center">
                 <label for="acc">帳號：</label>
                 <input type="text" name="acc" id="acc">
