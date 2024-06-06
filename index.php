@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <title>Practice</title>
+    <style>
+        a{
+            text-decoration:none; 
+        }
+    </style>
 </head>
 <body>
 <!-- 建立一個可以輸入帳號和密碼的表單畫面 -->
@@ -17,16 +23,19 @@
     <!-- 如果正確，有什麼動作；如果不正確，有什麼動作 -->
     
 <?php
-if(isset($_GET['error'])){ 
-    if($_GET['error']==1){
-    echo "<h1 class='mt-5 text-center text-danger'>兩個欄位都需填寫，請重新填寫</h1>";
-    }else
-    if($_GET['error']==2){
-    echo "<h1 class='mt-5 text-center text-danger'>帳號或密碼錯誤，請重新填寫</h1>";    
-    }
+if(isset($_SESSION['error1'])){     
+    echo "<h1 class='mt-5 text-center text-danger'>".$_SESSION['error1']."</h1>";
+    unset($_SESSION['error1']);
+}else if(isset($_SESSION['error2'])){
+    echo "<h1 class='mt-5 text-center text-danger'>".$_SESSION['error2']."</h1>";
+    unset($_SESSION['error2']);
+}else if(isset($_SESSION['error3'])){
+    echo "<h1 class='mt-5 text-center text-danger'>".$_SESSION['error3']."</h1>";
+    unset($_SESSION['error3']);
 }
-if(isset($_GET['login'])){ 
-    echo "<h1 class='mt-5 text-center text-primary'>歡迎您！</h1>";
+if(isset($_SESSION['login'])){ 
+    echo "<h1 class='mt-5 text-center text-primary'>".$_SESSION['login']."歡迎您！</h1>";
+    echo "<a href='logout.php'><h2 class='text-center text-secondary'>登出</h2></a>";
 }else{
 ?>
 <div class="container mt-5 mx-auto>
@@ -42,8 +51,8 @@ if(isset($_GET['login'])){
                 <input type="password" name="pw" id="pw">
             </div>
             <div class="mt-2 mx-auto text-center">
-                <input type="submit" value="登入">
-                <input type="reset" value="重置">
+                <input type="submit" value="登入" class="btn btn-primary">
+                <input type="reset" value="重置" class="btn btn-secondary">
             </div>
         </form>
         </div>

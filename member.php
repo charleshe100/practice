@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,12 +15,13 @@
 </head>
 <body>
 <?php
-if(isset($_GET['login'])){
-    if($_GET['login']==1){
-        echo "<h1 class='mt-5 text-center text-primary'>恭喜您登入成功！</h1>";
-    }
+if(isset($_SESSION['login']) && !empty($_SESSION['login'])){
+    echo "<h1 class='mt-5 text-center text-primary'>恭喜您登入成功！</h1>";
+    echo "<a href='index.php'><h2 class='mt-3 text-center text-secondary'>回到登入頁面</h2></a>";
+}else{
+    $_SESSION['error3']="沒有登入相關驗證，非法登入";
+    header("location:index.php");
 }
 ?>
-<a href="index.php?login"><h2 class='mt-3 text-center text-secondary'>回到登入頁面</h2></a>
 </body>
 </html>
