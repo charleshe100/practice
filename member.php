@@ -20,6 +20,6 @@ if(isset($_GET['login'])){
     }
 }
 ?>
-<a href="index.php"><h2 class='mt-3 text-center text-secondary'>回到登入頁面</h2></a>
+<a href="index.php?login"><h2 class='mt-3 text-center text-secondary'>回到登入頁面</h2></a>
 </body>
 </html>

@@ -25,6 +25,9 @@ if(isset($_GET['error'])){
     echo "<h1 class='mt-5 text-center text-danger'>帳號或密碼錯誤，請重新填寫</h1>";    
     }
 }
+if(isset($_GET['login'])){ 
+    echo "<h1 class='mt-5 text-center text-primary'>歡迎您！</h1>";
+}else{
 ?>
 <div class="container mt-5 mx-auto>
     <div class="row">
@@ -46,6 +49,8 @@ if(isset($_GET['error'])){
         </div>
     </div>
 </div>
-
+<?php
+}
+?>
 </body>
 </html>
