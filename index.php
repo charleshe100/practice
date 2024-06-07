@@ -1,62 +1,19 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <title>Practice</title>
-    <style>
-        a{
-            text-decoration:none; 
-        }
-    </style>
+    <title>Shopping Mall</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- 建立一個可以輸入帳號和密碼的表單畫面 -->
-    <!-- 建立form表單 -->
-    <!-- 建立 acc與pw的input -->
-<!-- 輸入帳號密碼，按下"登入"按鈕後，在另一個頁面顯示帳號密碼是否正確。 -->
-    <!-- 建立登入的submit按鈕 -->
-    <!-- 到check.php確認帳號密碼是否正確 -->
-    <!-- 如果正確，有什麼動作；如果不正確，有什麼動作 -->
-    
-<?php
-date_default_timezone_set("Asia/Taipei");
-if(isset($_COOKIE['error1'])){     
-    echo "<h1 class='mt-5 text-center text-danger'>".$_COOKIE['error1']."</h1>";
-}else if(isset($_COOKIE['error2'])){
-    echo "<h1 class='mt-5 text-center text-danger'>".$_COOKIE['error2']."</h1>";
-}else if(isset($_COOKIE['error3'])){
-    echo "<h1 class='mt-5 text-center text-danger'>".$_COOKIE['error3']."</h1>";
-}
-if(isset($_COOKIE['login'])){ 
-    echo "<h1 class='mt-5 text-center text-primary'>".$_COOKIE['login']."歡迎您！</h1>";
-    echo "<a href='logout.php'><h2 class='text-center text-secondary'>登出</h2></a>";
-}else{
-?>
-<div class="container mt-5 mx-auto>
-    <div class="row">
-        <div class="col">
-        <form action="check.php" method="post">
-            <div class="mt-2 mx-auto text-center">
-                <label for="acc">帳號：</label>
-                <input type="text" name="acc" id="acc">
-            </div>
-            <div class="mt-2 mx-auto text-center">
-                <label for="pw">密碼：</label>
-                <input type="password" name="pw" id="pw">
-            </div>
-            <div class="mt-2 mx-auto text-center">
-                <input type="submit" value="登入" class="btn btn-primary">
-                <input type="reset" value="重置" class="btn btn-secondary">
-            </div>
-        </form>
-        </div>
-    </div>
-</div>
-<?php
-}
-?>
+<?php include_once("header.php"); ?>
+
+<h1 class="mt-3 ms-3">超便宜購物商城</h1>
+
 </body>
 </html>

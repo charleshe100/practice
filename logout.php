@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set("Asia/Taipei");
-setcookie("login","$acc",time()-60);
+session_start();
+unset($_SESSION['login']);
 header("location:index.php");
 ?>
