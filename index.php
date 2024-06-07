@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,18 +22,16 @@
     <!-- 如果正確，有什麼動作；如果不正確，有什麼動作 -->
     
 <?php
-if(isset($_SESSION['error1'])){     
-    echo "<h1 class='mt-5 text-center text-danger'>".$_SESSION['error1']."</h1>";
-    unset($_SESSION['error1']);
-}else if(isset($_SESSION['error2'])){
-    echo "<h1 class='mt-5 text-center text-danger'>".$_SESSION['error2']."</h1>";
-    unset($_SESSION['error2']);
-}else if(isset($_SESSION['error3'])){
-    echo "<h1 class='mt-5 text-center text-danger'>".$_SESSION['error3']."</h1>";
-    unset($_SESSION['error3']);
+date_default_timezone_set("Asia/Taipei");
+if(isset($_COOKIE['error1'])){     
+    echo "<h1 class='mt-5 text-center text-danger'>".$_COOKIE['error1']."</h1>";
+}else if(isset($_COOKIE['error2'])){
+    echo "<h1 class='mt-5 text-center text-danger'>".$_COOKIE['error2']."</h1>";
+}else if(isset($_COOKIE['error3'])){
+    echo "<h1 class='mt-5 text-center text-danger'>".$_COOKIE['error3']."</h1>";
 }
-if(isset($_SESSION['login'])){ 
-    echo "<h1 class='mt-5 text-center text-primary'>".$_SESSION['login']."歡迎您！</h1>";
+if(isset($_COOKIE['login'])){ 
+    echo "<h1 class='mt-5 text-center text-primary'>".$_COOKIE['login']."歡迎您！</h1>";
     echo "<a href='logout.php'><h2 class='text-center text-secondary'>登出</h2></a>";
 }else{
 ?>

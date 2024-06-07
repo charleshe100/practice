@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,11 +14,12 @@
 </head>
 <body>
 <?php
-if(isset($_SESSION['login']) && !empty($_SESSION['login'])){
+date_default_timezone_set("Asia/Taipei");
+if(isset($_COOKIE['login']) && !empty($_COOKIE['login'])){
     echo "<h1 class='mt-5 text-center text-primary'>恭喜您登入成功！</h1>";
     echo "<a href='index.php'><h2 class='mt-3 text-center text-secondary'>回到登入頁面</h2></a>";
 }else{
-    $_SESSION['error3']="沒有登入相關驗證，非法登入";
+    setcookie("error3","沒有登入相關驗證，非法登入",time()+1);
     header("location:index.php");
 }
 ?>
