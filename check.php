@@ -1,5 +1,5 @@
 <?php
-session_start();
+include_once "session.php";
 $acc=$_POST['acc'];
 $pw=$_POST['pw'];
 if (!empty($acc) && !empty($pw)) {
