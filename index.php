@@ -44,7 +44,7 @@ function dd($rows){
 // 1. 撈出某班的學生成績
 // 2. 按照成績由高到低排序
 // 3. 增加一個欄位：名次
-
+function classes($class){   
 $dsn="mysql:host=localhost;charset=utf8;dbname=school";
 $pdo=new PDO($dsn,'root','',[]);
 $sql="SELECT `A`.`name` as `姓名`,`B`.`score` as `分數`, ROW_NUMBER() OVER (ORDER BY `B`.`score` DESC) AS `名次`
@@ -52,18 +52,20 @@ FROM
     (SELECT  `students`.`name`,`class_student`.`school_num` 
      FROM `students` 
      INNER JOIN `class_student` 
-     ON `students`.`school_num`=`class_student`.`school_num` AND `class_student`.`class_code`='101')A, 
+     ON `students`.`school_num`=`class_student`.`school_num` AND `class_student`.`class_code`=$class)A, 
     (SELECT `class_student`.`school_num`, `student_scores`.`score` 
      FROM `student_scores` 
      INNER JOIN `class_student` 
-     ON `student_scores`.`school_num`=`class_student`.`school_num` AND `class_student`.`class_code`='101')B 
+     ON `student_scores`.`school_num`=`class_student`.`school_num` AND `class_student`.`class_code`=$class)B 
 WHERE `A`.`school_num`=`B`.`school_num` 
 ORDER BY `B`.`score` DESC";
 $rows = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 // dd($rows);
+// exit();
 
 if (!empty($rows)) {
     echo "<div class='contaioner w-25 mx-auto my-3 text-center'>";
+    echo "<div class='row mt-2'><h3>".$class."班</h3></div>";
     echo "<table class='table table-bordered table-primary table-striped table-hover'>
             <tr>
                 <th>姓名</th>
@@ -78,8 +80,20 @@ if (!empty($rows)) {
         echo "</tr>";
     }
     echo "</table>";
+    echo "</div>";
+    echo "</div>";
 }
+}
+classes(101);
+classes(102);
+classes(103);
+classes(104);
+classes(105);
+classes(106);
+classes(107);
+classes(108);
+classes(109);
+classes(110);
 ?>
-</div>
 </body>
 </html>
