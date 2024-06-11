@@ -1,99 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <title>Students Score</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AJAX 非同步的Javascript 及 XML 技術</title>
     <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<?php
-// $dsn="mysql:host=localhost;charset=utf8;dbname=school";
-// $pdo=new PDO($dsn,'root','',[]);
-
-// $sql="select count(*) from `students` where `students`.`graduate_at`=1";
-// $sql="select * from `students`";
-// $rows=$pdo->query($sql)->fetchAll(); //全部資料
-// $source=$pdo->query($sql);
-// $rows=$source->fetch(); //第一筆資料
-// $rows=$source->fetch(); //第二筆資料
-// $rows=$source->fetch(); //第三筆資料
-
-// $sql="select count(*) from `dept` where `code`='801' && `name`='會計科'";
-// $rows=$pdo->query($sql)->fetchAll();
-// $sql="insert into `dept`(`code`,`name`)values('901','幼保科')";
-// $pdo->query($sql);
-
-// try {
-    // $sql = "INSERT INTO `dept` (`code`, `name`) VALUES ('705', '板金科')";
-    // $pdo->query($sql);
-    // echo "資料已成功插入";
-// } catch (PDOException $e) {
-    // echo "資料插入失敗: " . $e->getMessage();
-// }
-
-function dd($rows){
-    echo "<pre>";
-    print_r($rows);
-    echo "</pre>";
-}
-
-// 1. 撈出某班的學生成績
-// 2. 按照成績由高到低排序
-// 3. 增加一個欄位：名次
-function classes($class){   
-$dsn="mysql:host=localhost;charset=utf8;dbname=school";
-$pdo=new PDO($dsn,'root','',[]);
-$sql="SELECT `A`.`name` as `姓名`,`B`.`score` as `分數`, ROW_NUMBER() OVER (ORDER BY `B`.`score` DESC) AS `名次`
-FROM 
-    (SELECT  `students`.`name`,`class_student`.`school_num` 
-     FROM `students` 
-     INNER JOIN `class_student` 
-     ON `students`.`school_num`=`class_student`.`school_num` AND `class_student`.`class_code`=$class)A, 
-    (SELECT `class_student`.`school_num`, `student_scores`.`score` 
-     FROM `student_scores` 
-     INNER JOIN `class_student` 
-     ON `student_scores`.`school_num`=`class_student`.`school_num` AND `class_student`.`class_code`=$class)B 
-WHERE `A`.`school_num`=`B`.`school_num` 
-ORDER BY `B`.`score` DESC";
-$rows = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-// dd($rows);
-// exit();
-
-if (!empty($rows)) {
-    echo "<div class='contaioner w-25 mx-auto my-3 text-center'>";
-    echo "<div class='row mt-2'><h3>".$class."班</h3></div>";
-    echo "<table class='table table-bordered table-primary table-striped table-hover'>
-            <tr>
-                <th>姓名</th>
-                <th>分數</th>
-                <th>名次</th>
-            </tr>";
-    foreach ($rows as $row) {
-        echo "<tr>";
-        echo "<td>" . $row['姓名'] . "</td>";
-        echo "<td>" . $row['分數'] . "</td>";
-        echo "<td>" . $row['名次'] . "</td>";
-        echo "</tr>";
+    <style>
+    a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        font-size: 1.8rem;
     }
-    echo "</table>";
-    echo "</div>";
-    echo "</div>";
-}
-}
-classes(101);
-classes(102);
-classes(103);
-classes(104);
-classes(105);
-classes(106);
-classes(107);
-classes(108);
-classes(109);
-classes(110);
-?>
+    </style>
+</head>
+
+<body>
+    <h1 class="header">AJAX 非同步的Javascript 及 XML 技術</h1>
+    <div class="types">
+        <a href="xhr.html">XMLHttpRequest</a>
+    </div>
+    <div class="types">
+        <a href="fetch.html">Fetch</a>
+    </div>
+    <div class="types">
+        <a href="jquery.html">jQuery</a>
+    </div>
+    <div class="types">
+        <a href="axios.html">axios</a>
+    </div>
+    <div class="types">
+        <a href="./app1/index.html">用ajax取代iframe</a>
+    </div>
+    <div class="types">
+        <a href="./app2/index.html">用ajax做CRUD功能</a>
+    </div>
+    <div class="types">
+        <a href="./app3/index.html">modal中的表單行為</a>
+    </div>
 </body>
+
 </html>

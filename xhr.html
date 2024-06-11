@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>XMLHttpRequest</title>
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 class="header">XMLHttpRequest</h1>
+    <h4 class="title"></h4>
+    <div class="updated"></div>
+    <ul class="list-group"></ul>
+
+<script src="./js/bootstrap.js"></script>
+<script src="./js/jquery.js"></script>
+
+</body>
+</html>
+<script>
+    /********************************************************
+    * 1.api網址  https://kktix.com/events.json
+    * 2.宣告一個XMLHttpRequest物件
+    * 3.建立請求的各項設定及實質內容
+    * 4.建立得到回應時的各項行為
+    * 5.送出請求
+    ********************************************************/
+
+    //宣告一個XMLHttpRequest物件
+    let xhr=new XMLHttpRequest   
+
+
+    //建立請求的各項設定及實質內容
+    // xhr.open(
+    // Method, //get,post,put,patch,delete
+    // URL,
+    // async);
+    // async -非同步，預設，可以不用寫
+    // sync -同步
+    xhr.open('GET', 'https://kktix.com/events.json');
+    xhr.responseType = 'json'; //要求回傳的資料是json的格式
+
+    //建立得到回應時的各項設定及行為
+    xhr.onload=function(){  
+        let type=xhr.getResponseHeader("Content-Type");
+        let status=xhr.status //狀態碼 100 200 300 400 500
+        // let response=xhr.responseText //把回應的資料轉成文字
+        // let res=JSON.parse(response) //轉換文字為json格式的物件
+        let response=xhr.response // 搭配上面的xhr.responseType = 'json'; 拿到的資料就可以是json
+        console.log(response)
+        let events=response.entry; //entry是所有的內容
+        //console.log(events);
+        events.forEach((event,idx)=>{
+            $("ul").append(`<li class='list-group-item list-group-item-action'>
+                                <div>${event.title}</div>
+                                <div>${event.summary}</div>
+                                <div>${event.content}</div>
+                            </li>`)
+        })
+        $(".title").text(response.title) //在上面class="title"裡，以文字放進response.title的內容
+        $(".updated").text(response.updated) //在上面class="updated"裡，以文字放進response.updated的內容
+
+        // document.write(response)  //寫到網頁上  
+    }
+
+
+    //送出請求
+    xhr.send();
+
+    </script>
