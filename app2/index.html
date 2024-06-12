@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>學生資料管理系統</title>
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+    <!---匯入要使用的函式庫--->
+    <script src="jquery.js"></script>    
+</head>
+<body>  
+    <h1 class="header fw-bolder">學生資料管理系統</h1>
+    <div class="container d-flex">
+      <div class="all mx-2 my-3 col-1">
+        <button data-type="all" class="btn btn-warning mx-2 my-2" onclick="queryAll()" id="allbtn">全部</button>
+      </div>
+      <div class="sex mx-2 my-3 col-2">
+        <!-- <button class="btn btn-primary mx-2 my-2" onclick="query('sex=1')">男生</button> -->
+        <!-- <button class="btn btn-danger mx-2 my-2" onclick="query('sex=2')">女生</button> -->
+        <button data-type="boy" class="btn btn-primary mx-2 my-2" onclick="query('sex','1')" id="boybtn">男生</button>
+        <button data-type="girl" class="btn btn-danger mx-2 my-2" onclick="query('sex','2')" id="girlbtn">女生</button>
+      </div>
+      <div class="classes mx-2 my-3">
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','101')">一年一班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','102')">一年二班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','103')">一年三班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','104')">一年四班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','105')">一年五班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','106')">一年六班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','107')">一年七班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','108')">一年八班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','109')">一年九班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','110')">一年十班</button>
+      </div>
+    </div>
+    <div class="users d-flex flex-wrap justify-content-center mx-auto my-3 w-75"></div>
+</body>
+</html>
+<script>
+/************************************
+* 1.考慮觸發行為的事件
+* 2.建立監聽行為
+* 3.考慮是否需要代入參數
+* 4.是否會有回傳值？回傳值的功用及處理？
+* 5.是否需要更新畫面內容？更新畫面的方法？
+************************************/
+
+queryAll();
+// queryClasses();
+//新增資料的函式
+function create(){
+
+}
+
+//查詢資料的函式
+//測試button傳送出的資料
+// function query(def){
+  //將傳入的 def 字串以等號 = 為分隔符進行分割，返回一個數組並將其賦值給 def
+  //例如，如果 def 是 "name=value"，那麼 def.split("=") 會返回 ["name", "value"]
+  // def=def.split("=")
+  // console.log(def)
+  //使用 jQuery 的 $.get 方法發送一個 GET 請求到 ./api/query.php，
+  //並傳遞一個查詢參數 do=def 和數據 {def}
+  // $.get("./api/query.php?do=def",{def},(res)=>{
+    // console.log(res)
+  // })
+// }
+
+// $("#allbtn").click(function() {
+//   $(".classbtn").removeClass('btn-success').addClass('btn-secondary');
+//   $("#boybtn").removeClass('btn-primary').addClass('btn-secondary');
+//   $("#girlbtn").removeClass('btn-danger').addClass('btn-secondary');
+//   $(this).removeClass('btn-secondary').addClass('btn-warning');
+// });
+
+// $("#boybtn").click(function() {
+//   $(".classbtn").removeClass('btn-success').addClass('btn-secondary');
+//   $("#allbtn").removeClass('btn-warning').addClass('btn-secondary');
+//   $("#girlbtn").removeClass('btn-danger').addClass('btn-secondary');
+//   $(this).removeClass('btn-secondary').addClass('btn-primary');
+// });
+
+// $("#girlbtn").click(function() {
+//   $(".classbtn").removeClass('btn-success').addClass('btn-secondary');
+//   $("#allbtn").removeClass('btn-warning').addClass('btn-secondary');
+//   $("#boybtn").removeClass('btn-primary').addClass('btn-secondary');
+//   $(this).removeClass('btn-secondary').addClass('btn-danger');
+// });
+
+// $(".classbtn").click(function() {
+//   $("#allbtn").removeClass('btn-warning').addClass('btn-secondary');
+//   $("#boybtn").removeClass('btn-primary').addClass('btn-secondary');
+//   $("#girlbtn").removeClass('btn-danger').addClass('btn-secondary');
+//   $(".classbtn").removeClass('btn-success').addClass('btn-secondary');
+//   $(this).removeClass('btn-secondary').addClass('btn-success');
+// });
+
+function secondary(){
+    $("#allbtn").removeClass('btn-warning').addClass('btn-secondary');
+    $("#boybtn").removeClass('btn-primary').addClass('btn-secondary');
+    $("#girlbtn").removeClass('btn-danger').addClass('btn-secondary');
+    $(".classbtn").removeClass('btn-success').addClass('btn-secondary');
+  } 
+$("#allbtn, #boybtn, #girlbtn, .classbtn").click(function(){   
+  let type = $(this).data('type');
+  let value = $(this).data('value');
+  switch(type){
+    case 'all':
+      secondary();
+      $(this).removeClass('btn-secondary').addClass('btn-warning');
+    break;
+    case 'boy':
+      secondary()
+      $(this).removeClass('btn-secondary').addClass('btn-primary');
+    break;
+    case 'girl':
+      secondary()
+      $(this).removeClass('btn-secondary').addClass('btn-danger');
+    break;
+    case 'class':
+      secondary()
+      $(this).removeClass('btn-secondary').addClass('btn-success');
+    break;
+  }
+})
+
+function query(type,value){  
+  //有變數${}，外面的引號要用``
+  $.get(`./api/query.php?do=${type}`,{value},(respones)=>{
+    console.log(respones)  
+    $(".users").empty();
+    let user_layout;
+    respones.forEach((respone,idx)=>{
+      user_layout=`<div class="p-2">
+      <div class="card" style="width: 12rem;">
+      <div class='name text-center fw-bolder fs-5 mt-2'>${respone.name}</div>
+        <div class="card-body">
+          <div class="card-text">${respone.school_num}</div>
+          <div class="card-text">${respone.birthday}</div>
+          <div class="card-text">${respone.uni_id}</div>
+          <div class='controls mt-2'>
+            <a href="#" class="btn btn-primary">編輯</a>
+            <a href="#" class="btn btn-secondary">刪除</a>
+          </div>
+        </div>
+      </div>
+      </div>`
+    
+      $(".users").append(user_layout)
+    })    
+  })
+}
+
+//查詢所有的資料
+function queryAll(){
+$.get("./api/query.php?do=all",(users)=>{ 
+  //使用 jQuery 的 $.get 方法發送一個 GET 請求到 ./api/query.php，並傳遞一個查詢參數 do=all
+  //server返回數據，這些數據會作為users參數，傳給這個函式
+  console.log(users);
+  //解析 JSON 字串，將其轉換為 JavaScript 物件
+  //users=JSON.parse(users)
+  $(".users").empty();
+  let user_layout;
+  users.forEach((user,idx)=>{
+    user_layout=`<div class="p-2">
+    <div class="card" style="width: 12rem;">
+    <div class='name text-center fw-bolder fs-5 mt-2'>${user.name}</div>
+      <div class="card-body">
+        <div class="card-text">${user.school_num}</div>
+        <div class="card-text">${user.birthday}</div>
+        <div class="card-text">${user.uni_id}</div>
+        <div class='controls mt-2'>
+          <a href="#" class="btn btn-primary">編輯</a>
+          <a href="#" class="btn btn-secondary">刪除</a>
+        </div>
+      </div>
+    </div>
+    </div>`
+  
+    $(".users").append(user_layout)
+  })
+  //console.log(users)
+})
+}
+
+//編輯資料的函式
+function update(){
+
+}
+
+//刪除資料的函式
+function del(){
+
+}
+
+</script>
