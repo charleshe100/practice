@@ -24,16 +24,16 @@
         <button data-type="girl" class="btn btn-danger mx-2 my-2" onclick="query('sex','2')" id="girlbtn">女生</button>
       </div>
       <div class="classes mx-2 my-3">
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','101')">一年一班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','102')">一年二班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','103')">一年三班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','104')">一年四班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','105')">一年五班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','106')">一年六班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','107')">一年七班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','108')">一年八班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','109')">一年九班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','110')">一年十班</button> -->
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','101')">一年一班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','102')">一年二班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','103')">一年三班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','104')">一年四班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','105')">一年五班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','106')">一年六班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','107')">一年七班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','108')">一年八班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','109')">一年九班</button>
+        <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','110')">一年十班</button>
       </div>
     </div>
     <div class="users d-flex flex-wrap justify-content-center mx-auto my-3 w-75"></div>
@@ -49,11 +49,54 @@
 ************************************/
 
 queryAll();
-queryClasses();
-
+// queryClasses();
+//新增資料的函式
 function create(){
 
 }
+
+//查詢資料的函式
+//測試button傳送出的資料
+// function query(def){
+  //將傳入的 def 字串以等號 = 為分隔符進行分割，返回一個數組並將其賦值給 def
+  //例如，如果 def 是 "name=value"，那麼 def.split("=") 會返回 ["name", "value"]
+  // def=def.split("=")
+  // console.log(def)
+  //使用 jQuery 的 $.get 方法發送一個 GET 請求到 ./api/query.php，
+  //並傳遞一個查詢參數 do=def 和數據 {def}
+  // $.get("./api/query.php?do=def",{def},(res)=>{
+    // console.log(res)
+  // })
+// }
+
+// $("#allbtn").click(function() {
+//   $(".classbtn").removeClass('btn-success').addClass('btn-secondary');
+//   $("#boybtn").removeClass('btn-primary').addClass('btn-secondary');
+//   $("#girlbtn").removeClass('btn-danger').addClass('btn-secondary');
+//   $(this).removeClass('btn-secondary').addClass('btn-warning');
+// });
+
+// $("#boybtn").click(function() {
+//   $(".classbtn").removeClass('btn-success').addClass('btn-secondary');
+//   $("#allbtn").removeClass('btn-warning').addClass('btn-secondary');
+//   $("#girlbtn").removeClass('btn-danger').addClass('btn-secondary');
+//   $(this).removeClass('btn-secondary').addClass('btn-primary');
+// });
+
+// $("#girlbtn").click(function() {
+//   $(".classbtn").removeClass('btn-success').addClass('btn-secondary');
+//   $("#allbtn").removeClass('btn-warning').addClass('btn-secondary');
+//   $("#boybtn").removeClass('btn-primary').addClass('btn-secondary');
+//   $(this).removeClass('btn-secondary').addClass('btn-danger');
+// });
+
+// $(".classbtn").click(function() {
+//   $("#allbtn").removeClass('btn-warning').addClass('btn-secondary');
+//   $("#boybtn").removeClass('btn-primary').addClass('btn-secondary');
+//   $("#girlbtn").removeClass('btn-danger').addClass('btn-secondary');
+//   $(".classbtn").removeClass('btn-success').addClass('btn-secondary');
+//   $(this).removeClass('btn-secondary').addClass('btn-success');
+// });
 
 function btnsecondary(){
     $("#allbtn").removeClass('btn-warning').addClass('btn-secondary');
@@ -61,12 +104,9 @@ function btnsecondary(){
     $("#girlbtn").removeClass('btn-danger').addClass('btn-secondary');
     $(".classbtn").removeClass('btn-success').addClass('btn-secondary');
   } 
-//這段事件綁定只會在頁面初次加載時對已存在的按鈕進行綁定，對後來動態生成的按鈕無效
-// $("#allbtn, #boybtn, #girlbtn, .classbtn").click(function(){   
-//改成利用 jQuery 的事件委派機制，將事件綁定到一個常駐的父元素上，從而讓動態生成的子元素也能觸發事件
-  $(document).on('click', '#allbtn, #boybtn, #girlbtn, .classbtn', function(){
+$("#allbtn, #boybtn, #girlbtn, .classbtn").click(function(){   
   let type = $(this).data('type');
-  // let value = $(this).data('value');
+  let value = $(this).data('value');
   switch(type){
     case 'all':
       btnsecondary();
@@ -125,17 +165,6 @@ $.get("./api/query.php?do=all",(users)=>{
 })
 }
 
-function queryClasses(){
-  $.get("./api/query.php?do=classes",(classes)=>{
-    console.log(classes);
-    let class_btns
-    classes.forEach((c,idx)=>{
-      class_btns=`<button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','${c.code}')">${c.name}</button>`
-    $(".classes").append(class_btns)
-    })
-
-  })
-}
 //編輯資料的函式
 function update(){
 

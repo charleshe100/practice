@@ -50,7 +50,7 @@
 
 queryAll();
 queryClasses();
-
+//新增資料的函式
 function create(){
 
 }
@@ -128,12 +128,7 @@ $.get("./api/query.php?do=all",(users)=>{
 function queryClasses(){
   $.get("./api/query.php?do=classes",(classes)=>{
     console.log(classes);
-    let class_btns
-    classes.forEach((c,idx)=>{
-      class_btns=`<button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','${c.code}')">${c.name}</button>`
-    $(".classes").append(class_btns)
-    })
-
+    $(".classes").html(classes)
   })
 }
 //編輯資料的函式

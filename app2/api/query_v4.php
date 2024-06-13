@@ -17,29 +17,11 @@ switch($_GET['do']){
     break;
     case 'class':
         header('Content-Type:application/json; charset=utf-8');
-        // 這裡的=>是"等於"的意思
-        // sql語法相當於是
-        // SELECT * FROM `class_student` WHERE `class_code` = $_GET['value'];
-        // 先篩選出同班級的學生，如果$_GET['value']是101,，就是101班
-        $stnums=$ClassStudent->all(['class_code'=>$_GET['value']]);
-        $nums=[];
-        foreach($stnums as $st){
-            // 找出student資料表裡，跟class_code相同學號的學生資料
-            $s=$Student->find(['school_num'=>$st['school_num']]);
-            if(!empty($s)){
-                //把找出來的學生id放進$nums[]空陣列裡
-                $nums[]=$s['id'];
-            }
-        }
-        //將找出來的學生id之間，用,隔開
-        $in=join(',',$nums);
-        //從student資料表，依id找出學生資料中的四筆資料
-        $users=$Student->q("SELECT `name`, `uni_id`, `school_num`, `birthday` FROM `students` WHERE `id` in($in)");
-        echo json_encode($users); 
+        echo json_encode($Student->q("SELECT `name`, `uni_id`, `students`.`school_num`, `birthday` FROM `students` INNER JOIN `class_student` ON `students`.`school_num`=`class_student`.`school_num` WHERE `class_student`.`class_code` = '{$_GET['value']}';")); 
     break; 
     case 'classes':
         header('Content-Type:application/json; charset=utf-8');
-        echo json_encode($Classes->q("SELECT `code`, `name` FROM `classes`"));       
+        echo json_encode($Classes->q("SELECT `code`, `name` FROM `classes`"));        
     break;      
 }
 
