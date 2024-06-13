@@ -93,7 +93,7 @@ function render(users){
     $(".users").empty();
     let user_layout;
     users.forEach((user,idx)=>{
-      user_layout=`<div class="p-2">
+      user_layout=`<div class="p-2" id="user${user.id}">
       <div class="card" style="width: 12rem;">
       <div class='name text-center fw-bolder fs-5 mt-2'>${user.name}</div>
         <div class="card-body">
@@ -102,7 +102,7 @@ function render(users){
           <div class="card-text">${user.uni_id}</div>
           <div class='controls mt-2'>
             <a href="#" class="btn btn-primary">編輯</a>
-            <a href="#" class="btn btn-secondary">刪除</a>
+            <a href="Javascript:del(${user.id})" class="btn btn-secondary">刪除</a>
           </div>
         </div>
       </div>
@@ -114,6 +114,11 @@ function render(users){
 
 function query(type,value){  
   $.get(`./api/query.php?do=${type}`,{value},(users)=>{
+    //因為按了男女生和班級按鈕，再按刪除鈕，刪除失敗，
+    //在檢查刪除鈕的時候，Javascript:del(undefined), 
+    //所以在這裡console.log看query內容是否包含id
+    //結果是沒有id，所以就到query.php裡增加`id`欄位
+    // console.log(users);
     render(users)
   })
 }
@@ -142,8 +147,18 @@ function update(){
 }
 
 //刪除資料的函式
-function del(){
-
+function del(id){
+  // alert("確定要刪除嗎？")
+  // prompt("確定要刪除嗎？")
+  let con=confirm("確定要刪除嗎？")
+  if(con){
+    $.post(("./api/delete.php"),{id},(res)=>{
+      // 方法一：重整，再次跟後端要資料，會增加流量
+      //  queryAll()
+      // 方法二：直接移除html，不用跟後端要資料，資料小很多
+      $(`#user${id}`).remove()
+      })
+    alert("資料已刪除！")
+  }
 }
-
 </script>

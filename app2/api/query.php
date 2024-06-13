@@ -13,7 +13,7 @@ switch($_GET['do']){
     break;
     case 'sex';
         header('Content-Type:application/json; charset=utf-8');
-        echo json_encode($Student->q("SELECT `name`, `uni_id`, `school_num`, `birthday` FROM `students` WHERE substr(uni_id, 2, 1) = '{$_GET['value']}';"));
+        echo json_encode($Student->q("SELECT `id`, `name`, `uni_id`, `school_num`, `birthday` FROM `students` WHERE substr(uni_id, 2, 1) = '{$_GET['value']}';"));
     break;
     case 'class':
         header('Content-Type:application/json; charset=utf-8');
@@ -34,7 +34,7 @@ switch($_GET['do']){
         //將找出來的學生id之間，用,隔開
         $in=join(',',$nums);
         //從student資料表，依id找出學生資料中的四筆資料
-        $users=$Student->q("SELECT `name`, `uni_id`, `school_num`, `birthday` FROM `students` WHERE `id` in($in)");
+        $users=$Student->q("SELECT `id`, `name`, `uni_id`, `school_num`, `birthday` FROM `students` WHERE `id` in($in)");
         echo json_encode($users); 
     break; 
     case 'classes':
