@@ -9,10 +9,21 @@
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="style.css">
     <!---匯入要使用的函式庫--->
-    <script src="jquery.js"></script>    
+    <script src="jquery.js"></script>  
+    <script src="../js/bootstrap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />  
+    <style>
+      .form-floating>.form-select {
+        height: calc(3.5rem + 2px); /* 調整高度以適應輸入組 */
+      }
+    </style>
 </head>
 <body>  
-    <h1 class="header fw-bolder">學生資料管理系統</h1>
+    <h1 class="header fw-bolder">學生資料管理系統
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add">
+        <i class="fa-solid fa-user-plus"></i> 新增
+      </button>
+    </h1>
     <div class="container d-flex">
       <div class="all mx-2 my-3 col-1">
         <button data-type="all" class="btn btn-warning mx-2 my-2" onclick="queryAll()" id="allbtn">全部</button>
@@ -24,19 +35,80 @@
         <button data-type="girl" class="btn btn-danger mx-2 my-2" onclick="query('sex','2')" id="girlbtn">女生</button>
       </div>
       <div class="classes mx-2 my-3">
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','101')">一年一班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','102')">一年二班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','103')">一年三班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','104')">一年四班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','105')">一年五班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','106')">一年六班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','107')">一年七班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','108')">一年八班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','109')">一年九班</button> -->
-        <!-- <button data-type="class" class="classbtn btn btn-success mx-2 my-2" onclick="query('class','110')">一年十班</button> -->
       </div>
     </div>
     <div class="users d-flex flex-wrap justify-content-center mx-auto my-3 w-75"></div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="add" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addLabel"><h2>新增學生資料</h2></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="./api/insert.php" method="post">
+            <div class="input-group mb-3">
+              <!-- <label for="name" class="form-label">姓名</label> -->
+              <span class="input-group-text">姓名</span>
+              <input type="text" class="form-control" id="name" placeholder="王小明">
+            </div>            
+            <div class="input-group mb-3">
+              <span class="input-group-text">學號</span>
+              <input type="text" class="form-control" id="school_num" placeholder="911001">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">身份證字號</span>
+              <input type="text" class="form-control" id="uni_id" placeholder="A123456789">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">生日</span>
+              <input type="text" class="form-control" id="birthday" placeholder="2018-01-01">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">電話</span>
+              <input type="text" class="form-control" id="tel" placeholder="02-12345678">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">地址</span>
+              <input type="text" class="form-control" id="addr" placeholder="台北市大安區大安路1號">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">家長</span>
+              <input type="text" class="form-control" id="parents" placeholder="王大明">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">科系</span>
+              <div class="form-floating" id="floatingSelect" aria-label="Floating label select example"">
+                <select class="form-select">
+                  <!-- <option selected>請選擇</option> -->
+                  <option value="1">商業經營科</option>
+                </select>
+              <label for="floatingSelect">下拉選單</label>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">畢業學校</span>
+              <div class="form-floating d-flex" id="floatingSelect" aria-label="Floating label select example"">
+                <select class="form-select">
+                  <option value="1">南投縣</option>
+                </select>
+                <select class="form-select">
+                  <option value="1">縣立仁愛國中</option>
+                </select>
+              <label for="floatingSelect">下拉選單</label>
+              </div>
+            </div>                    
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
 <script>
