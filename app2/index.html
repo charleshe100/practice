@@ -12,9 +12,13 @@
     <script src="jquery.js"></script>  
     <script src="../js/bootstrap.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />  
-    <style>
-      .form-floating>.form-select {
-        height: calc(3.5rem + 2px); /* 調整高度以適應輸入組 */
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+    <style>          
+      #add{
+        z-index: 5000;
+      }
+      .flatpickr-calendar {
+          z-index: 100000; /* 確保日期選擇器在 modal 之上 */
       }
     </style>
 </head>
@@ -52,66 +56,80 @@
             <div class="input-group mb-3">
               <!-- <label for="name" class="form-label">姓名</label> -->
               <span class="input-group-text">姓名</span>
-              <input type="text" class="form-control" id="name" placeholder="王小明">
+              <input type="text" class="form-control" name="name" id="name" placeholder="王小明">
             </div>            
             <div class="input-group mb-3">
               <span class="input-group-text">學號</span>
-              <input type="text" class="form-control" id="school_num" placeholder="911001">
+              <input type="text" class="form-control" name="school_num" id="school_num" placeholder="911001">
             </div>
             <div class="input-group mb-3">
               <span class="input-group-text">身份證字號</span>
-              <input type="text" class="form-control" id="uni_id" placeholder="A123456789">
+              <input type="text" class="form-control" name="uni_id" id="uni_id" placeholder="A123456789">
             </div>
             <div class="input-group mb-3">
               <span class="input-group-text">生日</span>
-              <input type="text" class="form-control" id="birthday" placeholder="2018-01-01">
+              <input type="date" class="form-control" name="birthday" id="birthday" placeholder="2018-01-01">
             </div>
             <div class="input-group mb-3">
               <span class="input-group-text">電話</span>
-              <input type="text" class="form-control" id="tel" placeholder="02-12345678">
+              <input type="text" class="form-control" name="tel" id="tel" placeholder="02-12345678">
             </div>
             <div class="input-group mb-3">
               <span class="input-group-text">地址</span>
-              <input type="text" class="form-control" id="addr" placeholder="台北市大安區大安路1號">
+              <input type="text" class="form-control" name="addr" id="addr" placeholder="台北市大安區大安路1號">
             </div>
             <div class="input-group mb-3">
               <span class="input-group-text">家長</span>
-              <input type="text" class="form-control" id="parents" placeholder="王大明">
+              <input type="text" class="form-control" name="parents" id="parents" placeholder="王大明">
             </div>
             <div class="input-group mb-3">
-              <span class="input-group-text">科系</span>
-              <div class="form-floating" id="floatingSelect" aria-label="Floating label select example"">
-                <select class="form-select">
-                  <!-- <option selected>請選擇</option> -->
-                  <option value="1">商業經營科</option>
+              <span class="input-group-text">科系</span>              
+              <!-- <input type="text" class="form-control" name="dept" id="dept" placeholder="商業經營科"> -->
+              <div class="form-floating" id="floatingSelect1" aria-label="Floating label select example">
+                <select class="form-select" id="deptSelect">
+                  <!-- <option selected>請選擇</option> -->                
                 </select>
               <label for="floatingSelect">下拉選單</label>
               </div>
             </div>
             <div class="input-group mb-3">
               <span class="input-group-text">畢業學校</span>
-              <div class="form-floating d-flex" id="floatingSelect" aria-label="Floating label select example"">
-                <select class="form-select">
-                  <option value="1">南投縣</option>
+              <!-- <input type="text" class="form-control" name="graduate_at" id="graduate_at" placeholder="縣立仁愛國中"> -->
+              <div class="form-floating d-flex" id="floatingSelect2" aria-label="Floating label select example">
+                <!-- 分兩個select -->
+                <!-- <select class="form-select" id="graduateSelect1">
                 </select>
-                <select class="form-select">
-                  <option value="1">縣立仁愛國中</option>
+                <select class="form-select" id="graduateSelect2">
+                </select> -->
+                <select class="form-select" id="graduateSelect">
                 </select>
               <label for="floatingSelect">下拉選單</label>
               </div>
-            </div>                    
+            </div>    
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>                
           </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+        
       </div>
     </div>
   </div>
-</body>
-</html>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <script>
+//flatpickr日期
+$(document).ready(function(){
+  $('#add').on('shown.bs.modal',function(){
+    $('#birthday').flatpickr({
+      dateFormat: "Y-m-d",
+      altInput: true,
+      altFormat: "F j, Y",
+      allowInput: true
+    });
+  });
+});
 /************************************
 * 1.考慮觸發行為的事件
 * 2.建立監聽行為
@@ -159,6 +177,31 @@ function btnsecondary(){
   }
 })
 
+// show.bs.modal 去查bs5的modal的events
+// on 是觸發，當觸發的時候，就做以下事情
+$("#add").on('show.bs.modal',()=>{
+  $.get("./api/dept.php",(options)=>{
+    $("#deptSelect").html(options)
+  })
+})
+
+//分兩個select
+// $("#add").on('show.bs.modal',function(){
+//   $.get("./api/graduateSchool.php", function(data) {
+//         let options = data.split(","); // 根據分隔符分割返回的數據
+//         $("#graduateSelect1").html(options[0]);
+//         $("#graduateSelect2").html(options[1]);
+//     });
+// })
+
+// 整合成一個select
+$("#add").on('show.bs.modal',()=>{
+  $.get("./api/graduateSchool.php",(options)=>{
+    $("#graduateSelect").html(options)
+  })
+})
+
+
 function render(users){
   console.log(users) 
     //先清空，後面才能再放進user_layout 
@@ -185,12 +228,7 @@ function render(users){
 }
 
 function query(type,value){  
-  $.get(`./api/query.php?do=${type}`,{value},(users)=>{
-    //因為按了男女生和班級按鈕，再按刪除鈕，刪除失敗，
-    //在檢查刪除鈕的時候，Javascript:del(undefined), 
-    //所以在這裡console.log看query內容是否包含id
-    //結果是沒有id，所以就到query.php裡增加`id`欄位
-    // console.log(users);
+  $.get(`./api/query.php?do=${type}`,{value},(users)=>{    
     render(users)
   })
 }
@@ -234,3 +272,5 @@ function del(id){
   }
 }
 </script>
+</body>
+</html>

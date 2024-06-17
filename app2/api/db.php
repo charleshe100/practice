@@ -75,7 +75,7 @@ class DB{
         
             $sql = $sql . $cols . " values " . $vals;
         }
-
+        // echo $sql;
         return $this->pdo->exec($sql);
     }
 
@@ -143,6 +143,10 @@ function to($url){
 }
 
 $Student=new DB('students');
+$Classes=new DB('classes');
+$ClassStudent=new DB('class_student');
+$Dept=new DB('dept');
+$GraduateSchool=new DB('graduate_school');
 
 
 ?>

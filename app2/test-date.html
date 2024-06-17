@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>flatpickr-calendar</title>
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+    <!---匯入要使用的函式庫--->    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />  
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+    <style>
+        .flatpickr-calendar {
+            z-index: 9999; /* 確保日期選擇器在 modal 之上 */
+        }
+        #myModal{
+            z-index: 5000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 mx-auto">
+        <!-- Button to Open the Modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+            Open Modal
+        </button>
+
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Flatpickr in Modal</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <form action="#" method="post">
+                    <div class="modal-body">
+                        <input type="date" id="datePicker" class="form-control" placeholder="Select Date">
+                    </div>
+                    </form>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="jquery.js"></script>  
+    <script src="../js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        $(document).ready(function() {
+            // $('#myModal').on('shown.bs.modal', function() {
+                flatpickr("#datePicker", {
+                    dateFormat: "Y-m-d",
+                    altInput: true,
+                    altFormat: "F j, Y",
+                    allowInput: true,
+                    position: "below", // 強制將日曆顯示在 input 下方
+                    onClose: function(selectedDates, dateStr, instance) {
+                        // 修復 modal 中 Flatpickr 的焦點問題
+                        instance._input.focus();
+                    }
+                });
+            // });
+        });
+    </script>
+</body>
+</html>
