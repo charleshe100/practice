@@ -89,9 +89,9 @@ class DB{
         } else if (is_numeric($id)) {
             $sql .= " `id`='$id'";
         } 
-        //echo $sql;
+        echo $sql;
     
-        return $this->pdo->exec($sql);
+        // return $this->pdo->exec($sql);
     }
     
     /**
@@ -145,8 +145,10 @@ function to($url){
 $Student=new DB('students');
 $Classes=new DB('classes');
 $ClassStudent=new DB('class_student');
+$StudentScores=new DB('student_scores');
 $Dept=new DB('dept');
 $GraduateSchool=new DB('graduate_school');
+$Status=new DB('status');
 
 
 ?>
