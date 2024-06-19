@@ -89,9 +89,9 @@ class DB{
         } else if (is_numeric($id)) {
             $sql .= " `id`='$id'";
         } 
-        echo $sql;
+        // echo $sql;
     
-        // return $this->pdo->exec($sql);
+        return $this->pdo->exec($sql);
     }
     
     /**
