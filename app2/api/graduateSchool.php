@@ -15,11 +15,22 @@ $graduateSchools=$GraduateSchool->all();
 // };
 // echo $options1 . "," . $options2;
 
-$options="";
+// $options="";
+// foreach($graduateSchools as $graduateSchool){
+//     $options.="
+//           <option value='{$graduateSchool['id']}'>{$graduateSchool['county']} {$graduateSchool['name']}</option>
+//         </select>";
+// };
+
+$options='';
+$studentGS='';
+if(isset($_GET['id'])){
+    $studentGS=$Student->q("SELECT `graduate_school`.`id`,`graduate_school`.`county`,`graduate_school`.`name` FROM `students` INNER JOIN `graduate_school` ON `students`.`graduate_at`=`graduate_school`.`id` WHERE `students`.`id`='{$_GET['id']}'"); 
+    $studentGS=$studentGS['0']['id'];
+};
 foreach($graduateSchools as $graduateSchool){
-    $options.="
-          <option value='{$graduateSchool['id']}'>{$graduateSchool['county']} {$graduateSchool['name']}</option>
-        </select>";
+    $selected = (isset($studentGS) && $graduateSchool['id'] == $studentGS) ? "selected" : "";
+    $options.="<option value='{$graduateSchool['id']}' {$selected}>{$graduateSchool['name']}</option>";    
 };
 
 echo $options;

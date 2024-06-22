@@ -96,7 +96,7 @@ function popForm(type,id=null){
       });
       break;
       case('edit'):
-      console.log('送出前的id'+id);
+      //console.log('送出前的id'+id);
       $.get('./api/user_from.php',{id},(form)=>{
         // console.log(form);
         //把表單放到modal裡
@@ -108,6 +108,25 @@ function popForm(type,id=null){
 
         //觸發顯示
         stuModal.show("add")
+
+        //註冊modal的顯示事件
+        // console.log('送出前的id'+id);
+        $.get("./api/dept.php",{id},(options)=>{
+          // console.log('options',options);
+          $("#deptSelect").html(options)
+        })
+        $.get("./api/graduateSchool.php",{id},(options)=>{
+          $("#graduateSelect").html(options)
+        })
+        $.get("./api/status.php",{id},(options)=>{
+          $("#statusSelect").html(options)
+        })
+        $.get("./api/classes.php",{id},(options)=>{
+          $("#classcodeSelect").html(options)
+        })
+        $.get("./api/classStudent.php",{id},(options)=>{
+          $("#seatnumSelect").html(options)
+        })
         })
       break;
       

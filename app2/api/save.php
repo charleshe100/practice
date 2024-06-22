@@ -1,6 +1,6 @@
 <?php
 include_once "db.php";
-//處理更新資料的請求
+//處理新增與更新資料的請求
 $data = [
     'school_num' => $_POST['school_num'],
     'name' => $_POST['name'],
@@ -23,7 +23,7 @@ $dataCS = [
 
 $dataSS = [
     'school_num' => $_POST['school_num'],
-    'score' => '',
+    'score' => $_POST['score'],
 ];
 
 $Student->save($data);

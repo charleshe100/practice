@@ -7,22 +7,27 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <?php 
-          if(isset($_GET['id'])){
-            $save='update';
-          }else{
-            $save='insert';
-          };
-          
-          echo "<form action='./api/$save.php' method='post'>";
-             
+          <!-- <form action='./api/<?=(isset($_GET['id']))?'update':'insert';?>.php' method='post'> -->
+          <form action='./api/save.php' method='post'>
+          <?php
             if(isset($_GET['id'])){
               include_once "db.php";
               $user=$Student->find($_GET['id']);
               $classStu=$ClassStudent->find($_GET['id']);
+              $schoolnum=$Student->q("SELECT `student_scores`.`school_num` FROM `students` INNER JOIN `student_scores` ON `students`.`school_num` = `student_scores`.`school_num` WHERE `students`.`id`='{$_GET['id']}'");              
+              if(!empty($schoolnum)){
+                $schoolnum=$schoolnum[0]['school_num'];
+                $scoreStu=$StudentScores->q("SELECT `school_num`,`score` FROM `student_scores` WHERE `school_num`='$schoolnum'");
+                $score=$scoreStu[0]['score'];
+              };
+
+              // dd($user); 一維陣列
+              // dd($scoreStu); 二維陣列
+
               //解構陣列，將之變為每個變數
               extract($user);
               extract($classStu);
+              // extract($scoreStu); extract()只能解構一維陣列
             }
             ?>
             <div class="input-group mb-3">
@@ -58,7 +63,7 @@
               <span class="input-group-text">科系</span>              
               <!-- <input type="text" class="form-control" name="dept" id="dept" placeholder="商業經營科"> -->
               <div class="form-floating" id="floatingSelect1" aria-label="Floating label select example">
-                <select class="form-select" id="deptSelect" name="dept" value="<?=$nadeptme??'';?>">
+                <select class="form-select" id="deptSelect" name="dept" value="<?=$dept??'';?>">
                   <!-- <option selected>請選擇</option> -->                
                 </select>
               <label for="floatingSelect">下拉選單</label>
@@ -98,7 +103,7 @@
             </div>
             </div>
             <div class="row d-flex">
-              <div class="col-6">
+              <div class="col-4">
             <div class="input-group mb-3">
               <span class="input-group-text">座號</span>              
               <div class="form-floating" id="floatingSelect5" aria-label="Floating label select example">
@@ -109,10 +114,16 @@
               </div>
             </div>
             </div>            
-            <div class="col-6">
+            <div class="col-4">
             <div class="input-group mb-3">
               <span class="input-group-text">學年</span>
               <input type="text" class="form-control" name="year" id="year" placeholder="2000" value="<?=$year??'';?>">
+            </div>
+            </div>
+            <div class="col-4">
+            <div class="input-group mb-3">
+              <span class="input-group-text">成績</span>
+              <input type="text" class="form-control" name="score" id="score" placeholder="100" value="<?=$score??'';?>">
             </div>
             </div>
             </div>
