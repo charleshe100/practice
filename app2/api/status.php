@@ -1,23 +1,22 @@
 <?php
 include_once "db.php";
-$statuses=$Status->all();
-$options="";
-foreach($statuses as $status){
-    $options.="<option value='{$status['id']}'>{$status['status']}</option>";
-};
+// $statuses=$Status->all();
+// $options="";
+// foreach($statuses as $status){
+//     $options.="<option value='{$status['id']}'>{$status['status']}</option>";
+// };
 
 $statuses=$Status->all();
 $options='';
-$studentStatus='';
+$studentStatusCode='';
 if(isset($_GET['id'])){
-    $studentStatus=$Student->q("SELECT `status`.`id`,`status`.`code`,`status`.`status` FROM `students` INNER JOIN `status` ON `students`.`status_code`=`status`.`code` WHERE `students`.`id`='{$_GET['id']}'"); 
-    $studentStatus=$studentStatus['0']['id'];
+    $studentStatus=$Student->q("SELECT `status_code` FROM `students` WHERE `id`='{$_GET['id']}'"); 
+    $studentStatusCode=$studentStatus[0]['status_code'];
 };
 foreach($statuses as $status){
-    $selected = (isset($studentStatus) && $status['id'] == $studentStatus) ? "selected" : "";
-    $options.="<option value='{$status['id']}'>{$status['status']}</option>";
+    $selected = (isset($studentStatusCode) && $status['code'] == $studentStatusCode) ? "selected" : "";
+    $options.="<option value='{$status['code']}' $selected>{$status['status']}</option>";
 };
 
 echo $options;
-
 ?>
