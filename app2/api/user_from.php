@@ -7,7 +7,6 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <!-- <form action='./api/<?=(isset($_GET['id']))?'update':'insert';?>.php' method='post'> -->
           <form action='./api/save.php' method='post'>
           <?php
             if(isset($_GET['id'])){
@@ -102,18 +101,13 @@
             </div>
             </div>
             </div>
-            <div class="row d-flex">
-              <div class="col-4">
+            <div class="row d-flex">              
+            <div class="col-4">
             <div class="input-group mb-3">
-              <span class="input-group-text">座號</span>              
-              <div class="form-floating" id="floatingSelect5" aria-label="Floating label select example">
-                <select class="form-select" id="seatnumSelect" name="seat_num" value="<?=$seat_num??'';?>">
-                  <!-- <option selected>請選擇</option> -->                
-                </select>
-              <label for="floatingSelect">下拉選單</label>
-              </div>
+              <span class="input-group-text">座號</span>
+              <input type="text" class="form-control" name="seat_num" id="seat_num" placeholder="1" value="<?=$seat_num??'';?>">
             </div>
-            </div>            
+            </div>
             <div class="col-4">
             <div class="input-group mb-3">
               <span class="input-group-text">學年</span>

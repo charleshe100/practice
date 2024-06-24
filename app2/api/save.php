@@ -29,5 +29,6 @@ $dataSS = [
 $Student->save($data);
 $ClassStudent->save($dataCS);
 $StudentScores->save($dataSS);
+
 to("../index.html");
 ?>
