@@ -1,0 +1,16 @@
+<?php
+include_once "../include/connect.php";
+
+$acc=htmlspecialchars(trim($_POST['acc'])); //每一筆都要做檢查
+$pw=htmlspecialchars(trim($_POST['pw']));
+$name=htmlspecialchars(trim($_POST['name']));
+$email=htmlspecialchars(trim($_POST['email']));
+$address=htmlspecialchars(trim($_POST['address']));
+
+$sql="INSERT INTO `users`(`acc`,`pw`,`name`,`email`,`address`)
+      VALUES('{$acc}','{$pw}','{$name}','{$email}','{$address}')";
+// echo $sql;
+// exit();
+$pdo->exec($sql);
+header("location:../index.php");
+?>

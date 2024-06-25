@@ -11,4 +11,5 @@ v3版本~在query.php foreach提取資料，自動產生class button<br>
 v4版本~在JS forEach提取資料，自動產生class button<br>
 v5版本~變更query.php 的class寫法。index.html無變更<br>
 query.php，加上 SELECT id<br>
-index.html加上 刪除、新增功能<br>
+index.html加上 刪除、新增、編輯功能<br>
+branch memberPhpSql: 用Php與Sql做會員註冊登入功能<br>
