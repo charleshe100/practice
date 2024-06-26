@@ -1,3 +1,4 @@
+<?php include_once "./include/connect.php";?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body >
+<?php include_once "./include/navbar.php";?>
 <div id="app" class="container mt-5">
     <h2 class="text-center">會員註冊</h2>    
     <form action="./api/add_user.php" method="post" class="col-4 m-auto">

@@ -1,3 +1,4 @@
+<?php include_once "./include/connect.php";?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,13 +15,14 @@
     </style>
 </head>
 <body>
+<?php include_once "./include/navbar.php";?>
    <div class="container mt-5">
       <h2 class="text-center">會員登入</h2>
         <form action="./api/login.php" method="post" class="col-4 m-auto">
             <?php
                 if(isset($_GET['error'])){
                     echo "<span style='color:red'>";
-                    echo $_GET['error'];
+                    echo "<h3>".$_GET['error']."</h3>";
                     echo "</span>";
                 }
             ?>

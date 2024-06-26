@@ -1,3 +1,4 @@
+<?php include_once "./include/connect.php";?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,11 +14,18 @@
     }
 </style>
 <body >
+<?php include_once "./include/navbar.php";?>
 <div class="container text-center mt-5">
-    <a href="reg.php"><h2>會員註冊</h2></a>
-    <a href="login_form.php"><h2>會員登入</h2></a>
+<?php 
+    if(isset($_SESSION['users'])){
+        echo "<h1>".$_SESSION['users']."歡迎來到首頁！</h1>";
+    }else{
+        echo "<h1>首頁</h1>";
+    };
+?>
 </div>
 
 
 </body>
 </html>
+<a href="./include/connect.php"></a>
