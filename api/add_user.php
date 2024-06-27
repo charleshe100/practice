@@ -1,7 +1,8 @@
 <?php
 include_once "../include/connect.php";
 
-$acc=htmlspecialchars(trim($_POST['acc'])); //每一筆都要做檢查
+//每一筆都要做檢查
+$acc=htmlspecialchars(trim($_POST['acc'])); 
 $pw=htmlspecialchars(trim($_POST['pw']));
 $name=htmlspecialchars(trim($_POST['name']));
 $email=htmlspecialchars(trim($_POST['email']));
