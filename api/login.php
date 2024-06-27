@@ -18,9 +18,10 @@ $user=$pdo->query($sql)->fetchColumn();
 // 判斷式裡如果直接是1，就表示true，所以 if($user==1) 可以直接寫成 if($user)
 // 但還是要看所用的程式語言的定義
 if($user){
-    $_SESSION['users']=$acc;
-    header("location:../index.php");
+    $_SESSION['user']=$acc;
+    header("location:../member.php");
 }else{
-    header('location:../login_form.php?error=帳號或密碼錯誤');
+    $_SESSION['error']="帳號或密碼錯誤";
+    header("location:../login_form.php");
 }
 ?>

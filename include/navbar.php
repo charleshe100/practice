@@ -8,10 +8,11 @@
       <div class="navbar-nav mx-auto">
         <a class="nav-link active" aria-current="page" href="../index.php">Home</a>
         <?php
-        if(!isset($_SESSION['users'])){
+        if(!isset($_SESSION['user'])){
           echo "<a class='nav-link' href='../reg.php'>會員註冊</a>";
           echo "<a class='nav-link' href='../login_form.php'>會員登入</a>";
         }else{
+          echo "<a class='nav-link' href='../member.php'>會員中心</a>";
           echo "<a class='nav-link' href='../api/logout.php'>會員登出</a>";
         };
         ?>    

@@ -7,12 +7,6 @@
     <title>會員登入</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <style>
-        input[type='text'],
-        input[type='password']{
-            outline: none;
-        }
-    </style>
 </head>
 <body>
 <?php include_once "./include/navbar.php";?>
@@ -20,10 +14,17 @@
       <h2 class="text-center">會員登入</h2>
         <form action="./api/login.php" method="post" class="col-4 m-auto">
             <?php
-                if(isset($_GET['error'])){
-                    echo "<span style='color:red'>";
-                    echo "<h3>".$_GET['error']."</h3>";
-                    echo "</span>";
+                if(isset($_SESSION['error'])){
+                    echo "<h3 class='text-danger text-center'>";
+                    echo $_SESSION['error'];
+                    unset($_SESSION['error']);
+                    echo "</h3>";
+                }
+                if(isset($_SESSION['reg'])){
+                    echo "<h3 class='text-success text-center'>";
+                    echo $_SESSION['reg'];
+                    unset($_SESSION['reg']);
+                    echo "</h3>";
                 }
             ?>
             <div class="input-group my-2">

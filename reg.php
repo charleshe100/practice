@@ -11,7 +11,15 @@
 <body >
 <?php include_once "./include/navbar.php";?>
 <div id="app" class="container mt-5">
-    <h2 class="text-center">會員註冊</h2>    
+    <h2 class="text-center">會員註冊</h2> 
+    <?php
+    if(isset($_SESSION['del'])){
+        echo "<h3 class='text-danger text-center'>";
+        echo $_SESSION['del'];
+        unset($_SESSION['del']);
+        echo "</h3>";
+    }
+    ?>   
     <form action="./api/add_user.php" method="post" class="col-4 m-auto">
         <div class="input-group my-2">
             <label class="col-4  input-group-text">帳號：</label>

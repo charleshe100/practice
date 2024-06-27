@@ -1,6 +1,5 @@
 <?php
 session_start();
-unset($_SESSION['users']);
+unset($_SESSION['user']);
 header("location:../login_form.php");
 ?>
-<a href="../login_form.php"></a>
