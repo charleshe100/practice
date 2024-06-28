@@ -69,16 +69,16 @@ class DB{
             $sql .= join(",", $tmp);
             $sql .= " where `id`='{$array['id']}'";
         }else{
-            // $sql = "insert into `$this->table` ";
-            // $cols = "(`" . join("`,`", array_keys($array)) . "`)";
-            // $vals = "('" . join("','", $array) . "')";
-        
-            // $sql = $sql . $cols . " values " . $vals;
+            $sql = "insert into `$this->table` ";
             $cols = "(`" . join("`,`", array_keys($array)) . "`)";
-        $vals = "('" . join("','", $array) . "')";
-        $updates = $this->a2s($array);
+            $vals = "('" . join("','", $array) . "')";
+        
+            $sql = $sql . $cols . " values " . $vals;
+        //     $cols = "(`" . join("`,`", array_keys($array)) . "`)";
+        // $vals = "('" . join("','", $array) . "')";
+        // $updates = $this->a2s($array);
 
-        $sql = "insert into `$this->table` $cols values $vals ON DUPLICATE KEY UPDATE " . join(",", $updates);
+        // $sql = "insert into `$this->table` $cols values $vals ON DUPLICATE KEY UPDATE " . join(",", $updates);
         }
         // echo $sql;
         return $this->pdo->exec($sql);

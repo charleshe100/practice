@@ -20,8 +20,9 @@
                 $score=$scoreStu[0]['score'];
               };
 
-              // dd($user); 一維陣列
+              // dd($user); //一維陣列
               // dd($scoreStu); 二維陣列
+              // dd($classStu); 
 
               //解構陣列，將之變為每個變數
               extract($user);
@@ -36,7 +37,7 @@
             </div>            
             <div class="input-group mb-3">
               <span class="input-group-text">學號</span>
-              <input type="text" class="form-control" name="school_num" id="school_num" placeholder="911001" value="<?=$school_num??'';?>">
+              <input type="text" class="form-control" name="school_num" id="school_num" placeholder="911001" value="<?=$user['school_num']??'';?>">
             </div>
             <div class="input-group mb-3">
               <span class="input-group-text">身份證字號</span>
@@ -122,6 +123,7 @@
             </div>
             </div>
             <div class="modal-footer">
+              <input type="hidden" name="id" id="id" value="<?=$user['id'];?>">
               <button type="submit" class="btn btn-primary"><?=(!isset($_GET['id']))?'確認新增':'編輯更新';?></button>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
             </div>                

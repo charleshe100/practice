@@ -7,7 +7,7 @@ if(isset($_GET['id'])){
     $studentGS=$Student->find($_GET['id']); 
 };
 foreach($graduateSchools as $graduateSchool){
-    $selected = (!empty($studentGS) && $graduateSchool['id'] == $studentGS['id']) ? "selected" : "";
+    $selected = (!empty($studentGS) && $graduateSchool['id'] == $studentGS['graduate_at']) ? "selected" : "";
     $options.="<option value='{$graduateSchool['id']}' {$selected}>{$graduateSchool['name']}</option>";    
 };
 

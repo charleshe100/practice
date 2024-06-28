@@ -2,6 +2,7 @@
 include_once "db.php";
 //處理新增與更新資料的請求
 $data = [
+    'id' => $_POST['id'],
     'school_num' => $_POST['school_num'],
     'name' => $_POST['name'],
     'birthday' => $_POST['birthday'],
@@ -15,6 +16,7 @@ $data = [
 ];
 
 $dataCS = [
+    'id' => $_POST['id'],
     'school_num' => $_POST['school_num'],
     'class_code' => str_pad(str_pad($_POST['class_code'],2,'0',STR_PAD_LEFT),3,'1',STR_PAD_LEFT),
     'seat_num' => $_POST['seat_num'],
@@ -28,7 +30,11 @@ $dataSS = [
 
 $Student->save($data);
 $ClassStudent->save($dataCS);
-$StudentScores->save($dataSS);
+if(isset($_POST['id'])){
+    $StudentScores->q("UPDATE `student_scores` SET `score`='{$_POST['score']}' WHERE `school_num`='{$_POST['school_num']}'");
+}else{
+    $StudentScores->save($dataSS);
+}
 
 to("../index.html");
 ?>
