@@ -41,7 +41,21 @@ switch($_GET['do']){
         header('Content-Type:application/json; charset=utf-8');
         echo json_encode($Classes->q("SELECT `code`, `name` FROM `classes`"));       
     break;      
-}
+    case 'searchOne':
+        header('Content-Type:application/json; charset=utf-8');        
+        $user=$Student->find($_GET['userId']);
+        echo json_encode($user);        
+    break;      
+    case 'searchAll':
+        header('Content-Type:application/json; charset=utf-8');
+        if(isset($_GET['input']) && !empty($_GET['input']))        {
+            $input=trim($_GET['input']);
+            $users=$Student->q("SELECT `id`, `name`, `uni_id`, `school_num`, `birthday` FROM `students` WHERE `name` LIKE '%{$input}%'");        
+        echo json_encode($users);
+        }                
+    break;      
+
+};
 
 
 ?>

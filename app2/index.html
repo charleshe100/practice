@@ -13,6 +13,18 @@
     <script src="../js/bootstrap.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />  
     <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">  
+    <style>
+      #relation {
+          border: 1px solid #ccc;
+          width: 89%;
+          height: 225px;
+          position: absolute;
+          top: 42px;
+          display: none;
+          z-index: 1000;
+          background: white;
+      }      
+    </style>
 </head>
 <body>  
     <h1 class="header fw-bolder">學生資料管理系統
@@ -33,6 +45,13 @@
       <div class="classes my-3 d-flex flex-wrap justify-content-center">
       </div>
     </div>
+    <div class="container w-50 mx-auto position-relative">
+      <div class="d-flex">
+        <input class="form-control me-2" type="text" id="searchInput">
+        <button class="btn btn-outline-success" type="button" id="searchBtn">Search</button>
+      </div>
+      <div id="relation" class="rounded-3"></div>
+    </div>
     <div class="users d-flex flex-wrap justify-content-center mx-auto my-3 w-75"></div>
 
   <!-- Modal -->
@@ -41,7 +60,72 @@
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script>
-//flatpickr日期
+// search功能--------------------------------------------------------------
+// 輸入關鍵字，回傳結果到#relation裡
+let input
+$("#searchInput").on('input',()=>{
+  input=$("#searchInput").val()
+  $.get("./api/search.php",{input},(result)=>{
+    $("#relation").html(result)
+    $("#relation").show()
+  })
+})
+
+// 鼠標進到div，變換顏色
+$(document).on('mouseenter', '#relation div', function() {
+    $(this).addClass('bg-secondary text-white');
+});
+
+// 鼠標離開div，把剛才的顏色移除
+$(document).on('mouseleave', '#relation div', function() {
+    $(this).removeClass('bg-secondary text-white');
+});
+
+// 點擊其他地方隱藏 #relation
+$(document).on('click', function(event) {
+      //closest 從被點擊的元素開始，向上找DOM，找相匹配的元素
+      //如果有找到匹配的元素，返回一個包含該元素的 jQuery 對象，length 屬性大於 0
+      //如果沒有找到匹配的元素，返回一個空的 jQuery 對象，length 屬性為 0
+    if (!$(event.target).closest('#searchInput, #relation').length) {
+        $('#relation').hide();
+    }
+});
+
+// 點擊#relation底下的div，query出card
+$('#relation').on('click', 'div', function() {
+    let userId = $(this).data('id');
+    // console.log('userId',userId);
+    $.get(`./api/query.php?do=searchOne`,{userId},(user)=>{    
+      $(".users").empty();
+      let user_layout;
+      user_layout=`<div class="p-2" id="user${user.id}">
+      <div class="card" style="width: 12rem;">
+      <div class='name text-center fw-bolder fs-5 py-2 bg-info'>${user.name}</div>
+        <div class="card-body">
+          <div class="card-text">${user.school_num}</div>
+          <div class="card-text">${user.birthday}</div>
+          <div class="card-text">${user.uni_id}</div>
+          <div class='controls mt-2'>
+            <a href="Javascript:popForm('edit',${user.id})" class="btn btn-primary">編輯</a>
+            <a href="Javascript:del(${user.id})" class="btn btn-secondary">刪除</a>
+          </div>
+        </div>
+      </div>
+      </div>`
+      $(".users").html(user_layout)
+  })
+});
+
+// 點擊search按鈕，query出相關的card
+$('#searchBtn').on('click', function() { 
+    // console.log('searchBtn ok');
+    let input=$("#searchInput").val()
+    $.get(`./api/query.php?do=searchAll`, {input},function(users){
+      render(users)     
+  })
+})
+
+//flatpickr日期-------------------------------------------------------------
 // $(document).ready(function(){
 //   $('#add').on('shown.bs.modal',function(){
 //     $('#birthday').flatpickr({
@@ -53,7 +137,7 @@
 //   });
 // });
 
-// 用ajax顯示後台modal
+// add與edit分開，並將選單內容放進select裡-----------------------------------
 // let stuModal
 // function popForm(type,id=null){
 //   switch(type){
@@ -119,7 +203,17 @@
 //   }
 // }
 
-// add與edit合併
+//新增資料的函式
+// function create(){
+
+// }
+
+//編輯資料的函式
+// function update(){
+
+// }
+
+// add與edit合併，並將選單內容放進select裡------------------------------------
 let stuModal
 function popForm(type,id=null){  
   // 宣告params，用來判斷要傳給user_form.php的是id，還是空值
@@ -185,13 +279,12 @@ function popForm(type,id=null){
 * 5.是否需要更新畫面內容？更新畫面的方法？
 ************************************/
 
-queryAll();
+// queryAll();
 queryClasses();
+query('class','101');
 
-function create(){
-
-}
-
+// 只有在on click的時候，才會觸發按鈕變色-------------------------------------
+// 如果用 query(type,value)，不會觸發按鈕變色
 function btnsecondary(){
     $("#allbtn").removeClass('btn-warning').addClass('btn-secondary');
     $("#boybtn").removeClass('btn-primary').addClass('btn-secondary');
@@ -201,7 +294,7 @@ function btnsecondary(){
 //這段事件綁定只會在頁面初次加載時對已存在的按鈕進行綁定，對後來動態生成的按鈕無效
 // $("#allbtn, #boybtn, #girlbtn, .classbtn").click(function(){   
 //改成利用 jQuery 的事件委派機制，將事件綁定到一個常駐的父元素上，從而讓動態生成的子元素也能觸發事件
-  $(document).on('click', '#allbtn, #boybtn, #girlbtn, .classbtn', function(){
+$(document).on('click', '#allbtn, #boybtn, #girlbtn, .classbtn', function(){
   let type = $(this).data('type');
   // let value = $(this).data('value');
   switch(type){
@@ -224,15 +317,17 @@ function btnsecondary(){
   }
 })
 
+// 將選單內容放進select裡---------------------------------------------------
 // show.bs.modal 去查bs5的modal的events
-// on 是觸發，當觸發的時候，就做以下事情
+// on 是觸發，當觸發的時候，就做以下事情，將選單內容放進select裡
+// 科別
 // $("#add").on('show.bs.modal',()=>{
   // $.get("./api/dept.php",(options)=>{
     // $("#deptSelect").html(options)
   // })
 // })
 
-//分兩個select
+// 畢業學校 分兩個select，一個是county，一個是name
 // $("#add").on('show.bs.modal',function(){
 //   $.get("./api/graduateSchool.php", function(data) {
 //         let options = data.split(","); // 根據分隔符分割返回的數據
@@ -241,27 +336,30 @@ function btnsecondary(){
 //     });
 // })
 
-// 整合成一個select
+// 畢業學校 整合成一個select
 // $("#add").on('show.bs.modal',()=>{
 //   $.get("./api/graduateSchool.php",(options)=>{
 //     $("#graduateSelect").html(options)
 //   })
 // })
 
+// 狀態
 // $("#add").on('show.bs.modal',()=>{
 //   $.get("./api/status.php",(options)=>{
 //     $("#statusSelect").html(options)
 //   })
 // })
 
+// 班級
 // $("#add").on('show.bs.modal',()=>{
 //   $.get("./api/classes.php",(options)=>{
 //     $("#classcodeSelect").html(options)
 //   })
 // })
 
+// 以card的格式，印出學生資料------------------------------------------------
 function render(users){
-  console.log(users) 
+  // console.log(users) 
     //先清空，後面才能再放進user_layout 
     $(".users").empty();
     let user_layout;
@@ -282,39 +380,49 @@ function render(users){
       </div>`
     
       $(".users").append(user_layout)
-    })
+    })     
 }
 
-function query(type,value){  
-  $.get(`./api/query.php?do=${type}`,{value},(users)=>{    
-    render(users)
-  })
-}
-
-//查詢所有的資料
+//查詢所有的資料，再印出學生資料
 function queryAll(){
 $.get("./api/query.php?do=all",(users)=>{ 
-  render(users)
+  render(users)  
 })
 }
 
+//查詢switch中的資料，再印出學生資料
+function query(type,value){  
+  $.get(`./api/query.php?do=${type}`,{value},(users)=>{    
+    render(users)
+    
+    // 可用 query(type,value) 控制按鈕顏色
+    // if(type=='class'){
+    // $(".classbtn,#allbtn,#boybtn,#girlbtn").addClass('btn-secondary');
+    // $("#allbtn").removeClass('btn-warning');
+    // $("#boybtn").removeClass('btn-primary');
+    // $("#girlbtn").removeClass('btn-danger');
+    // $(".classbtn").removeClass('btn-success');
+    // $("#b"+value).addClass('btn-success');
+    // $("#b"+value).removeClass('btn-scondary');
+    // }    
+  })
+}
+
+// 列出班級按鈕-------------------------------------------------------------
 function queryClasses(){
   $.get("./api/query.php?do=classes",(classes)=>{
-    console.log(classes);
+    // console.log(classes);
     let class_btns
     classes.forEach((c,idx)=>{
-      class_btns=`<button data-type="class" class="classbtn btn btn-success mx-2 my-2 col-2" onclick="query('class','${c.code}')"><i class="fa-solid fa-graduation-cap"></i>&nbsp;&nbsp;${c.name}</button>`
+      //  id="b${c.code}" 是要使用在上面的"#b"+value
+      class_btns=`<button id="b${c.code}" data-type="class" class="classbtn btn btn-success mx-2 my-2 col-2" onclick="query('class','${c.code}')"><i class="fa-solid fa-graduation-cap"></i>&nbsp;&nbsp;${c.name}</button>`
     $(".classes").append(class_btns)
     })
 
   })
 }
-//編輯資料的函式
-function update(){
 
-}
-
-//刪除資料的函式
+// 刪除資料的函式-----------------------------------------------------------
 function del(id){
   // alert("確定要刪除嗎？")
   // prompt("確定要刪除嗎？")
