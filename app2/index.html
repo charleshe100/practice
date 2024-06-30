@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>學生資料管理系統</title>
     <link rel="shortcut icon" href="#" type="image/x-icon">
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/style.css">
     <!---匯入要使用的函式庫--->
-    <script src="jquery.js"></script>  
-    <script src="../js/bootstrap.js"></script>
+    <script src="./js/jquery.js"></script>  
+    <script src="./js/bootstrap.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />  
     <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">  
     <style>
@@ -23,7 +23,10 @@
           display: none;
           z-index: 1000;
           background: white;
-      }      
+      }   
+      .searchInputWidth{
+        width: 150px;
+      }  
     </style>
 </head>
 <body>  
@@ -31,28 +34,31 @@
       <button type="button" class="btn btn-primary" onclick="popForm('add')">
         <i class="fa-solid fa-user-plus"></i> 新增
       </button>
+      <button type="button" class="btn btn-dark" onclick="location.href='../index.html#portfoliio'">
+        <i class="fa-regular fa-folder-open"></i> Portfolio
+      </button>
     </h1>
     <div class="container d-flex">
-      <div class="all my-3 col-1 text-end">
+      <div class="all my-3 mx-2 col-2 text-end">
         <button data-type="all" class="btn btn-warning mx-2 my-2" onclick="queryAll()" id="allbtn"><i class="fa-solid fa-border-all"></i> 全員</button>
       </div>
-      <div class="sex my-3 col-2 text-end">
+      <div class="sex my-3 col-2 text-center">
         <!-- <button class="btn btn-primary mx-2 my-2" onclick="query('sex=1')">男生</button> -->
         <!-- <button class="btn btn-danger mx-2 my-2" onclick="query('sex=2')">女生</button> -->
         <button data-type="boy" class="btn btn-primary mx-2 my-2" onclick="query('sex','1')" id="boybtn"><i class="fa-solid fa-mars"></i> 男生</button>
         <button data-type="girl" class="btn btn-danger mx-2 my-2" onclick="query('sex','2')" id="girlbtn"><i class="fa-solid fa-venus"></i> 女生</button>
       </div>
-      <div class="classes my-3 d-flex flex-wrap justify-content-center">
+      <div class="classes my-3 d-flex flex-wrap justify-content-start">
       </div>
     </div>
-    <div class="container w-50 mx-auto position-relative">
-      <div class="d-flex">
-        <input class="form-control me-2" type="text" id="searchInput">
+    <div class="container col-3 mx-auto position-relativey">
+      <div class="d-flex justify-content-center">
+        <input class="form-control me-2 searchInputWidth" type="text" id="searchInput">
         <button class="btn btn-outline-success" type="button" id="searchBtn">Search</button>
       </div>
       <div id="relation" class="rounded-3"></div>
     </div>
-    <div class="users d-flex flex-wrap justify-content-center mx-auto my-3 w-75"></div>
+      <div class="users d-flex flex-wrap justify-content-center my-3 w-75 mx-auto"></div>
 
   <!-- Modal -->
   <div id="modals">    
@@ -415,7 +421,7 @@ function queryClasses(){
     let class_btns
     classes.forEach((c,idx)=>{
       //  id="b${c.code}" 是要使用在上面的"#b"+value
-      class_btns=`<button id="b${c.code}" data-type="class" class="classbtn btn btn-success mx-2 my-2 col-2" onclick="query('class','${c.code}')"><i class="fa-solid fa-graduation-cap"></i>&nbsp;&nbsp;${c.name}</button>`
+      class_btns=`<button id="b${c.code}" data-type="class" class="classbtn btn btn-success mx-2 my-2 col-2" onclick="query('class','${c.code}')"><i class="fa-solid fa-graduation-cap"></i> ${c.name}</button>`
     $(".classes").append(class_btns)
     })
 
