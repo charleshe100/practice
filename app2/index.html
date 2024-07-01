@@ -16,16 +16,17 @@
     <style>
       #relation {
           border: 1px solid #ccc;
-          width: 89%;
+          width: 185px;
           height: 225px;
           position: absolute;
-          top: 42px;
+          top: 24x;
+          left: 8%;
           display: none;
           z-index: 1000;
           background: white;
       }   
       .searchInputWidth{
-        width: 150px;
+        width: 185px;
       }  
     </style>
 </head>
@@ -51,9 +52,9 @@
       <div class="classes my-3 d-flex flex-wrap justify-content-start">
       </div>
     </div>
-    <div class="container col-3 mx-auto position-relativey">
+    <div class="container mx-auto position-relative col-2">
       <div class="d-flex justify-content-center">
-        <input class="form-control me-2 searchInputWidth" type="text" id="searchInput">
+        <input class="form-control me-2 searchInputWidth" type="text" id="searchInput" placeholder="請輸入&#34;姓名&#34;的關鍵字">
         <button class="btn btn-outline-success" type="button" id="searchBtn">Search</button>
       </div>
       <div id="relation" class="rounded-3"></div>
