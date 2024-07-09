@@ -1,45 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>AJAX 非同步的Javascript 及 XML 技術</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-    a {
-        display: block;
-        width: 100%;
-        height: 100%;
-        font-size: 1.8rem;
-    }
-    </style>
+    <title>Nine</title>
 </head>
-
+<style>
+    table,tr,td{
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px;
+        text-align: center;
+        margin: auto;
+        margin-top: 100px;
+    }
+</style>
 <body>
-    <h1 class="header">AJAX 非同步的Javascript 及 XML 技術</h1>
-    <div class="types">
-        <a href="xhr.html">XMLHttpRequest</a>
-    </div>
-    <div class="types">
-        <a href="fetch.html">Fetch</a>
-    </div>
-    <div class="types">
-        <a href="jquery.html">jQuery</a>
-    </div>
-    <div class="types">
-        <a href="axios.html">axios</a>
-    </div>
-    <div class="types">
-        <a href="./app1/index.html">用ajax取代iframe</a>
-    </div>
-    <div class="types">
-        <a href="./app2/index.html">用ajax做CRUD功能</a>
-    </div>
-    <div class="types">
-        <a href="./app3/index.html">modal中的表單行為</a>
-    </div>
+<table>
+<?php    
+for($row=1;$row<=9;$row++){
+    echo "<tr>"; 
+    for($col=1;$col<=9;$col++){
+        echo "<td>"; 
+        echo $row."x".$col."=".$row*$col;
+        echo "</td>";
+    }
+    if($col==9){
+        echo "</tr>"; 
+    }     
+}
+?>
+</table>
 </body>
-
 </html>
