@@ -3,33 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nine</title>
-</head>
-<style>
-    table,tr,td{
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding: 10px;
-        text-align: center;
-        margin: auto;
-        margin-top: 100px;
+    <title>Shape</title>
+    <style>
+    *{
+        font-family: 'Courier New', Courier, monospace;
+        line-height: 10px;              
     }
 </style>
+</head>
 <body>
-<table>
-<?php    
-for($row=1;$row<=9;$row++){
-    echo "<tr>"; 
-    for($col=1;$col<=9;$col++){
-        echo "<td>"; 
-        echo $row."x".$col."=".$row*$col;
-        echo "</td>";
+<?php
+// 正直角三角形   
+$amount=10; 
+for($i=1;$i<=$amount;$i++){
+    for($j=1;$j<=$i;$j++){
+    echo "*";
     }
-    if($col==9){
-        echo "</tr>"; 
-    }     
+    echo "<br>";
 }
 ?>
-</table>
 </body>
 </html>
